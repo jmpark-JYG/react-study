@@ -8,8 +8,6 @@ interface DraggableCardProp {
 }
 
 function DraggableCard({ index, todo }: DraggableCardProp) {
-  console.log(`${todo} render: ${index}`);
-
   return (
     <Draggable key={todo} draggableId={todo} index={index}>
       {(provided) => (

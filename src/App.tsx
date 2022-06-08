@@ -7,15 +7,28 @@ function App() {
   const boards = useStore((state) => state.boards);
   const setBoards = useStore((state) => state.setBoards);
   const onDragEnd = ({ draggableId, destination, source }: DropResult) => {
-    console.log(draggableId, destination, source);
-    // board 내 이동
-    if (destination?.droppableId === source.droppableId) {
-      const boardCopy = [...boards[source.droppableId]];
-      boardCopy.splice(source.index, 1);
-      boardCopy.splice(destination?.index, 0, draggableId);
+    if (!destination) return;
+
+    if (destination.droppableId === source.droppableId) {
+      // 같은 board 내 이동
+      const board = [...boards[source.droppableId]];
+      board.splice(source.index, 1);
+      board.splice(destination.index, 0, draggableId);
       setBoards({
         ...boards,
-        [source.droppableId]: boardCopy,
+        [source.droppableId]: board,
+      });
+    } else if (destination.droppableId !== source.droppableId) {
+      // 다른 board로 이동
+      const sourceBoard = [...boards[source.droppableId]];
+      const destinationBoard = [...boards[destination.droppableId]];
+
+      sourceBoard.splice(source.index, 1);
+      destinationBoard.splice(destination.index, 0, draggableId);
+      setBoards({
+        ...boards,
+        [source.droppableId]: sourceBoard,
+        [destination.droppableId]: destinationBoard,
       });
     }
   };
@@ -33,19 +46,19 @@ function App() {
 }
 
 const Wrapper = styled.div`
+  width: 100vw;
+  height: 100vh;
   display: flex;
-  max-width: 600px;
-  width: 100%;
   margin: 0 auto;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 `;
 
 const Boards = styled.div`
-  display: grid;
   width: 100%;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
   gap: 15px;
 `;
 
