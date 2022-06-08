@@ -33,7 +33,7 @@ function Board({ boardId, todos }: BoardProps) {
     <Wrapper>
       <Title>{boardId}</Title>
       <Form onSubmit={handleSubmit(onValid)}>
-        <input {...register("todo", { required: true })} type="text" placeholder={`Add task on ${boardId}`} />
+        <input {...register("todo", { required: true })} type="text" placeholder="내용을 입력하세요" />
       </Form>
       <Droppable droppableId={boardId}>
         {(provided, snapshot) => (
@@ -81,8 +81,18 @@ const Area = styled.div<AreaProps>`
 
 const Form = styled.form`
   width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
   input {
-    width: 100%;
+    width: 80%;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: white;
+    border: 0;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 16px;
   }
 `;
 

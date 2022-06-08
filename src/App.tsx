@@ -6,7 +6,7 @@ import { useStore } from "./stores/board.store";
 function App() {
   const boards = useStore((state) => state.boards);
   const setBoards = useStore((state) => state.setBoards);
-  const onDragEnd = ({ draggableId, destination, source }: DropResult) => {
+  const onDragEnd = ({ destination, source }: DropResult) => {
     if (!destination) return;
 
     const sourceBoard = [...boards[source.droppableId]];
