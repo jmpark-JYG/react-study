@@ -10,8 +10,8 @@ interface DraggableCardProp {
 function DraggableCard({ index, todo }: DraggableCardProp) {
   return (
     <Draggable key={todo} draggableId={todo} index={index}>
-      {(provided) => (
-        <Card ref={provided.innerRef} {...provided.dragHandleProps} {...provided.draggableProps}>
+      {(provided, snapshot) => (
+        <Card ref={provided.innerRef} {...provided.dragHandleProps} {...provided.draggableProps} isDragging={snapshot.isDragging}>
           {todo}
         </Card>
       )}
@@ -19,11 +19,12 @@ function DraggableCard({ index, todo }: DraggableCardProp) {
   );
 }
 
-const Card = styled.div`
+const Card = styled.div<{ isDragging: boolean }>`
   border-radius: 5px;
   margin-bottom: 5px;
-  padding: 10px 10px;
-  background-color: white;
+  padding: 10px;
+  background-color: ${(props) => (props.isDragging ? "e4f2ff" : "white")};
+  box-shadow: ${(props) => (props.isDragging ? "0px 2px 5px rgba(0,0,0,0.05)" : "none")};
 `;
 
 export default React.memo(DraggableCard);
