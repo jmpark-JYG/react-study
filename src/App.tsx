@@ -1,11 +1,26 @@
+import { useEffect } from "react";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import styled from "styled-components";
 import Board from "./components/todo/Board";
+import { loadBoards, saveBoards } from "./storage/localStorage";
 import { useStore } from "./stores/board.store";
 
 function App() {
   const boards = useStore((state) => state.boards);
   const setBoards = useStore((state) => state.setBoards);
+  useEffect(() => {
+    setBoards(
+      loadBoards() ?? {
+        TODO: [],
+        DOING: [],
+        DONE: [],
+      }
+    );
+  }, [setBoards]);
+  useEffect(() => {
+    saveBoards(boards);
+  }, [boards]);
+
   const onDragEnd = ({ destination, source }: DropResult) => {
     if (!destination) return;
 
