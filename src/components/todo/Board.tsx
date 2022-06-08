@@ -26,10 +26,11 @@ function Board({ boardId, todos }: BoardProps) {
 }
 
 const Wrapper = styled.div`
+  width: 300px;
+  min-height: 250px;
   padding: 10px 10px 20px;
   background-color: #dadfe9;
   border-radius: 5px;
-  min-height: 250px;
 `;
 
 const Title = styled.h2`
