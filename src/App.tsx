@@ -9,22 +9,22 @@ function App() {
   const onDragEnd = ({ draggableId, destination, source }: DropResult) => {
     if (!destination) return;
 
+    const sourceBoard = [...boards[source.droppableId]];
+    const todo = sourceBoard[source.index];
+
     if (destination.droppableId === source.droppableId) {
       // 같은 board 내 이동
-      const board = [...boards[source.droppableId]];
-      board.splice(source.index, 1);
-      board.splice(destination.index, 0, draggableId);
+      sourceBoard.splice(source.index, 1);
+      sourceBoard.splice(destination.index, 0, todo);
       setBoards({
         ...boards,
-        [source.droppableId]: board,
+        [source.droppableId]: sourceBoard,
       });
     } else if (destination.droppableId !== source.droppableId) {
       // 다른 board로 이동
-      const sourceBoard = [...boards[source.droppableId]];
       const destinationBoard = [...boards[destination.droppableId]];
-
       sourceBoard.splice(source.index, 1);
-      destinationBoard.splice(destination.index, 0, draggableId);
+      destinationBoard.splice(destination.index, 0, todo);
       setBoards({
         ...boards,
         [source.droppableId]: sourceBoard,
