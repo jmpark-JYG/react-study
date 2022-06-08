@@ -9,24 +9,34 @@ interface BoardProps {
 
 function Board({ boardId, todos }: BoardProps) {
   return (
-    <Droppable droppableId={boardId}>
-      {(provided) => (
-        <Wrapper ref={provided.innerRef} {...provided.droppableProps}>
-          {todos.map((todo, index) => (
-            <DraggableCard key={index} index={index} todo={todo} />
-          ))}
-          {provided.placeholder}
-        </Wrapper>
-      )}
-    </Droppable>
+    <Wrapper>
+      <Title>{boardId}</Title>
+      <Droppable droppableId={boardId}>
+        {(provided) => (
+          <div ref={provided.innerRef} {...provided.droppableProps}>
+            {todos.map((todo, index) => (
+              <DraggableCard key={index} index={index} todo={todo} />
+            ))}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
+    </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
-  padding: 20px 10px;
+  padding: 10px 10px 20px;
   background-color: #dadfe9;
   border-radius: 5px;
-  min-height: 200px;
+  min-height: 250px;
+`;
+
+const Title = styled.h2`
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 10px;
+  font-size: 18px;
 `;
 
 export default Board;
