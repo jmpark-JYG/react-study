@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import styled from "styled-components";
 import Board from "./components/todo/Board";
+import Trash from "./components/todo/Trash";
 import { loadBoards, saveBoards } from "./storage/localStorage";
 import { useStore } from "./stores/board.store";
 
@@ -26,8 +27,13 @@ function App() {
 
     const sourceBoard = [...boards[source.droppableId]];
     const todo = sourceBoard[source.index];
-
-    if (destination.droppableId === source.droppableId) {
+    if (destination.droppableId === "trash") {
+      sourceBoard.splice(source.index, 1);
+      setBoards({
+        ...boards,
+        [source.droppableId]: [...sourceBoard],
+      });
+    } else if (destination.droppableId === source.droppableId) {
       // 같은 board 내 이동
       sourceBoard.splice(source.index, 1);
       sourceBoard.splice(destination.index, 0, todo);
@@ -55,6 +61,7 @@ function App() {
             <Board key={boardId} boardId={boardId} todos={boards[boardId]} />
           ))}
         </Boards>
+        <Trash />
       </Wrapper>
     </DragDropContext>
   );
@@ -67,6 +74,7 @@ const Wrapper = styled.div`
   margin: 0 auto;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 `;
 
 const Boards = styled.div`

@@ -21,9 +21,11 @@ function DraggableCard({ index, todoId, todoText }: DraggableCardProp) {
 }
 
 const Card = styled.div<{ isDragging: boolean }>`
-  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
   margin-bottom: 5px;
   padding: 10px;
+  border-radius: 5px;
   background-color: ${(props) => (props.isDragging ? "tomato" : "white")};
   box-shadow: ${(props) => (props.isDragging ? "0px 2px 5px rgba(0,0,0,0.5)" : "none")};
 `;
