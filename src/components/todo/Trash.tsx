@@ -1,21 +1,6 @@
 import { Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
 
-const Arae = styled.div<{ isDraggingOver: boolean }>`
-  width: 50px;
-  height: 50px;
-  position: absolute;
-  right: 50px;
-  bottom: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: ${(props) => (props.isDraggingOver ? "red" : "white")};
-  border-radius: 50%;
-  transform: scale(${(props) => (props.isDraggingOver ? "1.4" : "1")});
-  transition: transform 0.5s ease-in-out;
-`;
-
 function Trash() {
   return (
     <Droppable droppableId="trash">
@@ -30,5 +15,20 @@ function Trash() {
     </Droppable>
   );
 }
+
+const Arae = styled.div<{ isDraggingOver: boolean }>`
+  width: 70px;
+  height: 70px;
+  position: fixed;
+  right: 100px;
+  bottom: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${(props) => (props.isDraggingOver ? "tomato" : "white")};
+  border-radius: 50%;
+  transform: scale(${(props) => (props.isDraggingOver ? "1.5" : "1")});
+  transition: transform 0.5s ease-in-out;
+`;
 
 export default Trash;

@@ -28,6 +28,7 @@ function App() {
     const sourceBoard = [...boards[source.droppableId]];
     const todo = sourceBoard[source.index];
     if (destination.droppableId === "trash") {
+      // 삭제
       sourceBoard.splice(source.index, 1);
       setBoards({
         ...boards,
@@ -61,8 +62,8 @@ function App() {
             <Board key={boardId} boardId={boardId} todos={boards[boardId]} />
           ))}
         </Boards>
-        <Trash />
       </Wrapper>
+      <Trash />
     </DragDropContext>
   );
 }
@@ -72,8 +73,9 @@ const Wrapper = styled.div`
   height: 100vh;
   display: flex;
   margin: 0 auto;
+  padding: 100px 10px 10px;
   justify-content: center;
-  align-items: center;
+  align-items: top;
   overflow: hidden;
 `;
 
